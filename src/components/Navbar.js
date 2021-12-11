@@ -8,14 +8,15 @@ import {
   Typography,
   IconButton,
   Avatar,
+  Button,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
-import SearchModal from '../components/SearchModal'
+import SearchModal from "../components/SearchModal";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    borderBottom: `1px solid ${theme.palette.background.light}`
+    borderBottom: `1px solid ${theme.palette.background.light}`,
   },
   box: {
     flexGrow: 1,
@@ -25,8 +26,8 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "flex-start",
   },
   appName: {
-    color: theme.palette.text.primary
-  }
+    color: theme.palette.text.primary,
+  },
 }));
 
 const Navbar = (props) => {
@@ -48,10 +49,13 @@ const Navbar = (props) => {
             <IconButton>
               <Avatar alt="Remy Sharp" src="/images/logo.png" />
             </IconButton>
-            <Typography variant="h5" className={classes.appName} >
+            <Typography variant="h5" className={classes.appName}>
               Gamla Fund
             </Typography>
           </Box>
+          <Button variant="contained" onClick={props.connectWallet}>
+            Connect Wallet
+          </Button>
           <SearchModal {...props} />
           {/* <IconButton onClick={() => history(`/search`)}>
             <SearchIcon />

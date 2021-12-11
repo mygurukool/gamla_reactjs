@@ -150,7 +150,11 @@ const Home = (props) => {
   };
   return (
     <>
-      <Navbar onFundClick={handleFundClick} data={mappedFunds} />
+      <Navbar
+        onFundClick={handleFundClick}
+        data={mappedFunds}
+        connectWallet={connectWallet}
+      />
       <FundModal
         open={Boolean(openFund)}
         data={openFund}

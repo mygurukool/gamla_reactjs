@@ -10,7 +10,6 @@ const useSearch = ({ array, fields }) => {
     const filtered = array.filter((item, index) => {
       const searchresult = fields.filter((fieldName) => {
         const fieldValue = JSON.stringify(item[fieldName])?.toLowerCase();
-
         return fieldValue.includes(searchQuery?.toLowerCase());
       });
 
