@@ -9,15 +9,29 @@ import {
   IconButton,
   Avatar,
 } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import { useNavigate } from "react-router-dom";
+import SearchModal from '../components/SearchModal'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    background: "white",
+    borderBottom: `1px solid ${theme.palette.background.light}`
   },
+  box: {
+    flexGrow: 1,
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
+  },
+  appName: {
+    color: theme.palette.text.primary
+  }
 }));
 
 const Navbar = (props) => {
   const classes = useStyles();
+  const history = useNavigate();
   return (
     <AppBar
       position="static"
@@ -25,17 +39,23 @@ const Navbar = (props) => {
       elevation={1}
       className={classes.root}
       style={{
-        backgroundColor: "white",
+        backgroundColor: "transparent",
       }}
     >
       <Container maxWidth="lg">
         <Toolbar disableGutters>
-          <IconButton>
-            <Avatar alt="Remy Sharp" src="/images/logo.png" />
-          </IconButton>
-          <Typography variant="h6" noWrap color="MenuText">
-            Gamla Fund
-          </Typography>
+          <Box className={classes.box}>
+            <IconButton>
+              <Avatar alt="Remy Sharp" src="/images/logo.png" />
+            </IconButton>
+            <Typography variant="h5" className={classes.appName} >
+              Gamla Fund
+            </Typography>
+          </Box>
+          <SearchModal {...props} />
+          {/* <IconButton onClick={() => history(`/search`)}>
+            <SearchIcon />
+          </IconButton> */}
         </Toolbar>
       </Container>
     </AppBar>

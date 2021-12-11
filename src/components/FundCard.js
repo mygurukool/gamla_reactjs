@@ -1,11 +1,13 @@
 import React from "react";
 import { makeStyles } from "@mui/styles";
-import { Card, CardContent, Typography, Grid } from "@mui/material";
+import { Card, CardContent, Typography, Grid, alpha, ButtonBase } from "@mui/material";
 import { CURRENCY } from "../constants";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "auto",
-    backgroundColor: theme.palette.background.paper,
+    background: `linear-gradient(to right top, ${theme.palette.background.light},${theme.palette.background.primary})`,
+    border: `1px solid ${theme.palette.background.light}`
+
   },
 
   icon: {
@@ -13,13 +15,10 @@ const useStyles = makeStyles((theme) => ({
     width: "10vh",
   },
   balance: {
-    backgroundColor: theme.palette.primary.lighter,
+    backgroundColor: alpha(theme.palette.background.light, 0.9),
     color: theme.palette.primary.main,
-    paddingLeft: theme.spacing(1),
-    paddingRight: theme.spacing(1),
-
-    paddingTop: theme.spacing(0.5),
-    paddingBottom: theme.spacing(0.5),
+    padding: theme.spacing(1),
+    borderRadius: theme.palette.radius.base,
   },
 }));
 
@@ -28,27 +27,31 @@ const colors = [
   { light: "#E8EBF5", dark: "#454A75" },
 ];
 
-const FundCard = ({ fundName, currency, duration, icon, amount, index }) => {
+const FundCard = ({ fundName, onClick, currency, duration, icon, amount, index }) => {
   const classes = useStyles();
   const myColor = colors[index];
   return (
     <Card key={index} className={classes.root} variant="outlined">
-      <CardContent>
-        <Grid container>
-          <Grid item lg={12} sm={12}>
-            <Typography variant="caption" className={classes.balance}>
-              {currency}
-            </Typography>
-            <Typography variant="h6">{fundName}</Typography>
+      <ButtonBase style={{ width: '100%', justifyContent: 'flex-start', textAlign: 'left' }} onClick={onClick}>
 
-            <Typography variant="caption">{duration}</Typography>
+        <CardContent>
+          <Grid container>
+            <Grid item lg={12} sm={12}>
+              <Typography variant="caption" className={classes.balance}>
+                {currency}
+              </Typography>
+              <Typography variant="h6" sx={{ marginTop: 2 }}>{fundName}</Typography>
 
-            <Typography variant="subtitle1">
-              {CURRENCY} {amount}
-            </Typography>
+              <Typography variant="caption">{duration}</Typography>
+
+              <Typography variant="subtitle1">
+                {CURRENCY} {amount}
+              </Typography>
+            </Grid>
           </Grid>
-        </Grid>
-      </CardContent>
+        </CardContent>
+      </ButtonBase>
+
     </Card>
   );
 };

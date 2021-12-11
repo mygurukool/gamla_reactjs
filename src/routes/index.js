@@ -1,23 +1,31 @@
+import { makeStyles } from "@mui/styles";
+import { Box } from "@mui/system";
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import { Routes, Route, Link } from "react-router-dom";
-import Navbar from "../components/Navbar";
-import FundDetails from "../pages/FundDetail";
 import Home from "../pages/Home";
-import Splash from "../pages/Splash";
+
 const RoutesContainer = () => {
+  const classes = useStyles()
   return (
     <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path="/splash" element={<Splash />} />
+      <div className={classes.root}>
 
-        <Route path="/" element={<Home />} />
+        <Routes>
 
-        <Route path="/funddetail" element={<FundDetails />} />
-      </Routes>
+
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </div>
     </BrowserRouter>
   );
 };
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    background: theme.palette.background.main
+  },
+
+}));
 
 export default RoutesContainer;

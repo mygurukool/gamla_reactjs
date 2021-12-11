@@ -1,3 +1,3 @@
 export const BASEURL = "";
 
-export const CURRENCY = "$";
+export const CURRENCY = "$ ";

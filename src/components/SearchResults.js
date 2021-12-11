@@ -5,13 +5,13 @@ const useStyles = makeStyles((theme) => ({
   root: {},
 }));
 
-const FundDetails = (props) => {
+const SearchResults = (props) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <div></div>
+      <div>SearchResults</div>
     </div>
   );
 };
 
-export default FundDetails;
+export default SearchResults;
