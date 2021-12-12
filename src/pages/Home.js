@@ -67,7 +67,7 @@ const Home = (props) => {
         <div className={classes.root}>
           <div className={classes.carouselContainer}>
             <HomeCarousel
-              title="Your Funds"
+              title="Your wallet funds"
               data={homeData.carousel}
               renderItem={(d, i) => <MyFundCard {...d} index={i} />}
               breakpoints={breakpointsCarousel}
@@ -79,7 +79,7 @@ const Home = (props) => {
             <>
               <div className={classes.fundsContainer}>
                 <HomeCarousel
-                  title="Joined Funds"
+                  title="Funds you joined"
                   data={allFunds}
                   renderItem={(d, i) => (
                     <FundCard
@@ -95,7 +95,7 @@ const Home = (props) => {
 
               <div className={classes.fundsContainer}>
                 <HomeCarousel
-                  title="Trending Funds"
+                  title="Funds open for subscription"
                   data={allFunds}
                   renderItem={(d, i) => (
                     <FundCard
