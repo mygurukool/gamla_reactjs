@@ -35,9 +35,9 @@ const FundModal = ({ open, onClose, data }) => {
   const handleSubmit = () => {
     if (!plegingState) {
       alert("Please Pledge collatral");
+    }else {
+      joinFund({ ...data, collateral: plegingState });
     }
-
-    joinFund({ ...data, collateral: plegingState });
   };
 
   return (
