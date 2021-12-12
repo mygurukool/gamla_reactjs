@@ -35,9 +35,9 @@ const FundModal = ({ open, onClose, data }) => {
   const handleSubmit = () => {
     if (!plegingState) {
       alert("Please Pledge collatral");
+    }else {
+      joinFund({ ...data, collateral: plegingState });
     }
-
-    joinFund({ ...data, collateral: plegingState });
   };
 
   return (
@@ -68,7 +68,7 @@ const FundModal = ({ open, onClose, data }) => {
         <Grid container spacing={2}>
           <SectionDisplay
             title="Subscribed Users"
-            value={data?.users}
+            value={data?.users ? data?.users : 0}
           ></SectionDisplay>
           <SectionDisplay
             title="Duration"
