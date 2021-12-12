@@ -1,13 +1,20 @@
 import React from "react";
 import { makeStyles } from "@mui/styles";
-import { Card, CardContent, Typography, Grid, alpha, ButtonBase } from "@mui/material";
-import { CURRENCY } from "../constants";
+import {
+  Card,
+  CardContent,
+  Typography,
+  Grid,
+  alpha,
+  ButtonBase,
+} from "@mui/material";
+import { CURRENCY, DATEFORMAT } from "../constants";
+import moment from "moment";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "auto",
     background: `linear-gradient(to right top, ${theme.palette.background.light},${theme.palette.background.primary})`,
-    border: `1px solid ${theme.palette.background.light}`
-
+    border: `1px solid ${theme.palette.background.light}`,
   },
 
   icon: {
@@ -27,22 +34,41 @@ const colors = [
   { light: "#E8EBF5", dark: "#454A75" },
 ];
 
-const FundCard = ({ fundName, onClick, currency, duration, icon, amount, index }) => {
+const FundCard = ({
+  fundName,
+  onClick,
+  currency,
+  duration,
+  icon,
+  amount,
+  index,
+  startDate,
+}) => {
   const classes = useStyles();
   const myColor = colors[index];
   return (
     <Card key={index} className={classes.root} variant="outlined">
-      <ButtonBase style={{ width: '100%', justifyContent: 'flex-start', textAlign: 'left' }} onClick={onClick}>
-
+      <ButtonBase
+        style={{
+          width: "100%",
+          justifyContent: "flex-start",
+          textAlign: "left",
+        }}
+        onClick={onClick}
+      >
         <CardContent>
           <Grid container>
             <Grid item lg={12} sm={12}>
               <Typography variant="caption" className={classes.balance}>
                 {currency}
               </Typography>
-              <Typography variant="h6" sx={{ marginTop: 2 }}>{fundName}</Typography>
+              <Typography variant="h6" sx={{ marginTop: 2 }}>
+                {fundName}
+              </Typography>
 
-              <Typography variant="caption">{duration}</Typography>
+              <Typography variant="caption">
+                {duration} {moment(startDate).format(DATEFORMAT)}
+              </Typography>
 
               <Typography variant="subtitle1">
                 {CURRENCY} {amount}
@@ -51,7 +77,6 @@ const FundCard = ({ fundName, onClick, currency, duration, icon, amount, index }
           </Grid>
         </CardContent>
       </ButtonBase>
-
     </Card>
   );
 };

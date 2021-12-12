@@ -100,6 +100,10 @@ const useBlockChain = () => {
     // console.log("upcoming Mined -- ", createFundTxn.hash);
   };
 
+  const joinFund = (data) => {
+    console.log("joinFund", data);
+  };
+
   const getContracts = async () => {
     setIsLoading(true);
     try {
@@ -168,6 +172,7 @@ const useBlockChain = () => {
     getContracts,
     isLoading,
     createContract,
+    joinFund,
   };
 };
 

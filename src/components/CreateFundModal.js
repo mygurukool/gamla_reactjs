@@ -33,11 +33,18 @@ const CreateFundModal = ({ open, onClose, data, onSubmit }) => {
     handleSubmit,
     watch,
     formState: { errors },
+
     control,
   } = useForm({});
+  const [duration, setDuration] = React.useState();
 
   const classes = useStyles();
-
+  const localSubmit = (data) => {
+    onSubmit({
+      ...data,
+      duration: duration,
+    });
+  };
   return (
     <Dialog
       maxWidth="sm"
@@ -63,7 +70,7 @@ const CreateFundModal = ({ open, onClose, data, onSubmit }) => {
         ) : null}
       </DialogTitle>
       <DialogContent>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(localSubmit)}>
           <Grid container spacing={2}>
             <InputDisplay
               label="Fund Name"
@@ -82,7 +89,30 @@ const CreateFundModal = ({ open, onClose, data, onSubmit }) => {
               inputProps={{
                 type: "number",
               }}
+              onCustomChange={(val) => setDuration(val)}
             />
+
+            <Grid item lg={12} md={12} sm={12} xs={12}>
+              <Typography>Duration : {duration}</Typography>
+              <Typography variant="caption">
+                The duration will be same as Number of participants
+              </Typography>
+            </Grid>
+
+            {/* <InputDisplay
+              label="Duration in months"
+              control={control}
+              name="duration"
+              error={errors["duration"]}
+              required={true}
+              inputProps={{
+                type: "number",
+                disabled: true,
+                helperText:
+                  "The duration will be same as Number of participants ",
+              }}
+            /> */}
+
             <InputDisplay
               label="Amount"
               control={control}
@@ -99,17 +129,6 @@ const CreateFundModal = ({ open, onClose, data, onSubmit }) => {
               name="startDate"
               error={errors["startDate"]}
               required={true}
-            />
-
-            <InputDisplay
-              label="Duration in months"
-              control={control}
-              name="duration"
-              error={errors["duration"]}
-              required={true}
-              inputProps={{
-                type: "number",
-              }}
             />
 
             <Grid item lg={12} md={12} sm={12} xs={12}>
@@ -138,6 +157,7 @@ const InputDisplay = ({
   required,
   error,
   rules,
+  onCustomChange,
 }) => {
   const classes = useStyles();
   return (
@@ -156,6 +176,15 @@ const InputDisplay = ({
             error={error}
             helperText={error && error.message}
             {...inputProps}
+            onChange={(e) => {
+              const value = e.target.value;
+
+              field.onChange(e);
+
+              if (onCustomChange) {
+                onCustomChange(value);
+              }
+            }}
           />
         )}
         defaultValue={defaultValue || ""}
@@ -242,6 +271,10 @@ const useStyles = makeStyles((theme) => ({
   },
   card: {
     border: `1px solid ${theme.palette.background.light}`,
+  },
+  disabled: {
+    border: "1px solid white",
+    color: "white",
   },
 }));
 

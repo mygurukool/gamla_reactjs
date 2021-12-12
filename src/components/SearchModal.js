@@ -162,6 +162,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
         width: "40ch",
       },
     },
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+      "&:focus": {
+        width: "100%",
+      },
+    },
   },
 }));
 // import React from "react";

@@ -32,12 +32,16 @@ const Home = (props) => {
   };
 
   const hanldeCreateFund = async (data) => {
-    console.log("hanldeCreateFund", data);
+    // console.log("hanldeCreateFund", data);
     await createContract({
       ...data,
       startDate: moment(data.startDate).unix(),
     });
     setOpenCreateFund(false);
+  };
+
+  const onCreateFund = () => {
+    setOpenCreateFund(true);
   };
   return (
     <>
@@ -46,6 +50,7 @@ const Home = (props) => {
         data={allFunds}
         connectWallet={connectWallet}
         currentAccount={currentAccount}
+        onCreateFund={onCreateFund}
       />
       <FundModal
         open={Boolean(openFund)}
