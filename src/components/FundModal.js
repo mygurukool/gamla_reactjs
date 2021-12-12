@@ -68,7 +68,7 @@ const FundModal = ({ open, onClose, data }) => {
         <Grid container spacing={2}>
           <SectionDisplay
             title="Subscribed Users"
-            value={data?.users}
+            value={data?.users ? data?.users : 0}
           ></SectionDisplay>
           <SectionDisplay
             title="Duration"
