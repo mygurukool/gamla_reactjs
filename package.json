@@ -12,6 +12,7 @@
     "@mui/lab": "^5.0.0-alpha.59",
     "@mui/material": "^5.2.3",
     "@mui/styles": "^5.2.3",
+    "@mui/system": "^5.2.3",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
