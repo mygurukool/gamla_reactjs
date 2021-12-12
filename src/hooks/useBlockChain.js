@@ -159,6 +159,7 @@ const useBlockChain = () => {
               row.requiredNbOfParticipants.toString(),
             startDate: moment(row.startDate).format("DD/MM/YYYY HH:mm"),
             currency: "USDT",
+            users:row.participantsCount,
             address: d,
           };
         })
@@ -182,6 +183,7 @@ const useBlockChain = () => {
     const recurringAmount = await communityFund.recurringAmount();
     const startDate = await communityFund.startDate();
     const duration = await communityFund.duration();
+    const participantsCount = await communityFund.getAllParticipants().length;
 
     return {
       name,
@@ -189,6 +191,7 @@ const useBlockChain = () => {
       recurringAmount,
       startDate,
       duration,
+      participantsCount,
     };
   };
 
