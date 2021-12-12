@@ -23,6 +23,17 @@ const Home = (props) => {
 
   //fund details modal
 
+  // remove duplicates from allFunds
+  let uniqueFunds = [...new Map(allFunds.map((v) => [v.address, v])).values()];
+
+  const joinedFunds = uniqueFunds.filter((fund) =>
+    fund.users.includes(currentAccount)
+  );
+
+  const pastFunds = uniqueFunds.filter((fund) => {
+    return moment(fund.startDate).isAfter(moment());
+  });
+
   const [openFund, setOpenFund] = React.useState();
 
   const [openCreateFund, setOpenCreateFund] = React.useState(false);
@@ -47,7 +58,7 @@ const Home = (props) => {
     <>
       <Navbar
         onFundClick={handleFundClick}
-        data={allFunds}
+        data={uniqueFunds}
         connectWallet={connectWallet}
         currentAccount={currentAccount}
         onCreateFund={onCreateFund}
@@ -75,12 +86,12 @@ const Home = (props) => {
           </div>
           {isLoading ? (
             <LoadingContainer />
-          ) : allFunds?.length > 0 ? (
+          ) : uniqueFunds?.length > 0 ? (
             <>
               <div className={classes.fundsContainer}>
                 <HomeCarousel
                   title="Funds you joined"
-                  data={allFunds}
+                  data={joinedFunds}
                   renderItem={(d, i) => (
                     <FundCard
                       onClick={() => handleFundClick(d)}
@@ -91,12 +102,18 @@ const Home = (props) => {
                   swiperProps={swiperProps}
                   breakpoints={breakpointsFunds}
                 />
+                {joinedFunds.length === 0 && (
+                  <Typography marginLeft={4}>
+                    <h4>You have not joined any funds</h4>
+                    <h4>Find awesome funds from the lists below</h4>
+                  </Typography>
+                )}
               </div>
 
               <div className={classes.fundsContainer}>
                 <HomeCarousel
                   title="Funds open for subscription"
-                  data={allFunds}
+                  data={pastFunds}
                   renderItem={(d, i) => (
                     <FundCard
                       onClick={() => handleFundClick(d)}
@@ -107,12 +124,17 @@ const Home = (props) => {
                   swiperProps={swiperProps}
                   breakpoints={breakpointsFunds}
                 />
+                {pastFunds.length === 0 && (
+                  <Typography marginLeft={4}>
+                    <h4>There are no funds open for subscription at the moment.</h4>
+                  </Typography>
+                )}
               </div>
 
               <div className={classes.fundsContainer}>
                 <HomeCarousel
                   title="All Funds"
-                  data={allFunds}
+                  data={uniqueFunds}
                   renderItem={(d, i) => <FundCard {...d} index={i} />}
                   swiperProps={swiperProps}
                   breakpoints={breakpointsFunds}
