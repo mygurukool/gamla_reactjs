@@ -84,7 +84,7 @@ const FundModal = ({ open, onClose, data }) => {
           ></SectionDisplay>
           <SectionDisplay
             title="Start Date"
-            value={moment(data?.startDate).format(DATEFORMAT)}
+            value={data?.startDate}
           ></SectionDisplay>
 
           <Grid item lg={12} md={12} sm={12} xs={12}>
