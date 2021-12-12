@@ -95,6 +95,7 @@ const FundModal = ({ open, onClose, data }) => {
               fullWidth
               label="Select Pledging collateral"
               color="primary"
+              onChange={(e) => setPlagingState(e.target.value)}
             >
               {pleadgeOptions.map((option) => (
                 <MenuItem key={option.fundName} value={option.fundName}>
