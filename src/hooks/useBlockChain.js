@@ -182,12 +182,6 @@ const useBlockChain = () => {
       await communityFund.requiredNbOfParticipants();
     const recurringAmount = await communityFund.recurringAmount();
     const startDate = await communityFund.startDate()*1000*1000;
-    console.debug("startDate",
-      startDate.toString(),
-      name,
-      moment(startDate).format("DD/MM/YYYY HH:mm"),
-      moment(startDate*1000).format("DD/MM/YYYY HH:mm")
-    );
     const duration = await communityFund.duration();
     const participantsAddress = await communityFund.getAllParticipants();
 
