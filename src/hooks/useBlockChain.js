@@ -109,7 +109,7 @@ const useBlockChain = () => {
     const signer = provider.getSigner();
     const communityFund = new ethers.Contract(address, fundABI, signer);
 
-    const collateral = parseInt(data.amount) * parseInt(data.requiredNumberOfParticipants) * 1.2;
+    const collateral = parseInt(parseInt(data.amount) * parseInt(data.requiredNumberOfParticipants) * 1.2).toFixed(0);
 
     // console.debug("data", data);
     // console.debug("collateral", collateral);
