@@ -67,7 +67,7 @@ const Home = (props) => {
         <div className={classes.root}>
           <div className={classes.carouselContainer}>
             <HomeCarousel
-              title="Your wallet funds"
+              title="Your crypto wallet funds"
               data={homeData.carousel}
               renderItem={(d, i) => <MyFundCard {...d} index={i} />}
               breakpoints={breakpointsCarousel}
@@ -79,7 +79,7 @@ const Home = (props) => {
             <>
               <div className={classes.fundsContainer}>
                 <HomeCarousel
-                  title="Funds you joined"
+                  title="Gamla Funds you joined"
                   data={allFunds}
                   renderItem={(d, i) => (
                     <FundCard
@@ -95,7 +95,7 @@ const Home = (props) => {
 
               <div className={classes.fundsContainer}>
                 <HomeCarousel
-                  title="Funds open for subscription"
+                  title="Gamla Funds open for subscription"
                   data={allFunds}
                   renderItem={(d, i) => (
                     <FundCard
@@ -111,7 +111,7 @@ const Home = (props) => {
 
               <div className={classes.fundsContainer}>
                 <HomeCarousel
-                  title="All Funds"
+                  title="All Gamla Funds"
                   data={allFunds}
                   renderItem={(d, i) => <FundCard {...d} index={i} />}
                   swiperProps={swiperProps}
