@@ -135,7 +135,13 @@ const Home = (props) => {
                 <HomeCarousel
                   title="All Gamla Funds"
                   data={uniqueFunds}
-                  renderItem={(d, i) => <FundCard {...d} index={i} />}
+                  renderItem={(d, i) => (
+                    <FundCard
+                      onClick={() => handleFundClick(d)}
+                      {...d}
+                      index={i}
+                    />
+                  )}
                   swiperProps={swiperProps}
                   breakpoints={breakpointsFunds}
                 />
