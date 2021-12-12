@@ -26,7 +26,7 @@ const useBlockChain = () => {
       const accounts = await ethereum.request({ method: "eth_accounts" });
 
       if (accounts.length !== 0) {
-        const account = accounts[0];
+        const account = ethers.utils.getAddress(accounts[0]);
         console.log("Found an authorized account:", account);
         setCurrentAccount(account);
         getContracts();
@@ -159,7 +159,7 @@ const useBlockChain = () => {
               row.requiredNbOfParticipants.toString(),
             startDate: moment(row.startDate).format("DD/MM/YYYY HH:mm"),
             currency: "USDT",
-            users:row.participantsCount,
+            users: row.participantsAddress,
             address: d,
           };
         })
@@ -181,9 +181,15 @@ const useBlockChain = () => {
     const requiredNbOfParticipants =
       await communityFund.requiredNbOfParticipants();
     const recurringAmount = await communityFund.recurringAmount();
-    const startDate = await communityFund.startDate();
+    const startDate = await communityFund.startDate()*1000*1000;
+    console.debug("startDate",
+      startDate.toString(),
+      name,
+      moment(startDate).format("DD/MM/YYYY HH:mm"),
+      moment(startDate*1000).format("DD/MM/YYYY HH:mm")
+    );
     const duration = await communityFund.duration();
-    const participantsCount = await communityFund.getAllParticipants().length;
+    const participantsAddress = await communityFund.getAllParticipants();
 
     return {
       name,
@@ -191,7 +197,7 @@ const useBlockChain = () => {
       recurringAmount,
       startDate,
       duration,
-      participantsCount,
+      participantsAddress,
     };
   };
 
