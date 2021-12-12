@@ -129,6 +129,7 @@ const useBlockChain = () => {
               row.requiredNbOfParticipants.toString(),
             startDate: moment(row.startDate).format("DD/MM/YYYY HH:mm"),
             currency: "USDT",
+            address: d,
           };
         })
       );
