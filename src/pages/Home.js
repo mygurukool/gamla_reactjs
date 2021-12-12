@@ -31,7 +31,7 @@ const Home = (props) => {
   );
 
   const pastFunds = uniqueFunds.filter((fund) => {
-    return moment(fund.startDate).isAfter(moment());
+    return moment(fund.startDate, "DD/MM/YYYY HH:mm").isAfter(moment());
   });
 
   const [openFund, setOpenFund] = React.useState();
