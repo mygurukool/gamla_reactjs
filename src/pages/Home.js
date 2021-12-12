@@ -25,18 +25,19 @@ const Home = (props) => {
 
   const [openFund, setOpenFund] = React.useState();
 
-  const [openCreateFund, setOpenCreateFund] = React.useState(true);
+  const [openCreateFund, setOpenCreateFund] = React.useState(false);
 
   const handleFundClick = (data) => {
     setOpenFund(data);
   };
 
-  const hanldeCreateFund = (data) => {
+  const hanldeCreateFund = async (data) => {
     console.log("hanldeCreateFund", data);
-    createContract({
+    await createContract({
       ...data,
       startDate: moment(data.startDate).unix(),
     });
+    setOpenCreateFund(false);
   };
   return (
     <>
