@@ -79,6 +79,22 @@ const Home = (props) => {
             <>
               <div className={classes.fundsContainer}>
                 <HomeCarousel
+                  title="Joined Funds"
+                  data={allFunds}
+                  renderItem={(d, i) => (
+                    <FundCard
+                      onClick={() => handleFundClick(d)}
+                      {...d}
+                      index={i}
+                    />
+                  )}
+                  swiperProps={swiperProps}
+                  breakpoints={breakpointsFunds}
+                />
+              </div>
+
+              <div className={classes.fundsContainer}>
+                <HomeCarousel
                   title="Trending Funds"
                   data={allFunds}
                   renderItem={(d, i) => (
