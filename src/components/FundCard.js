@@ -67,7 +67,7 @@ const FundCard = ({
               </Typography>
 
               <Typography variant="caption">
-                {duration} {moment(startDate).format(DATEFORMAT)}
+                {duration} {', Startdate: ' + moment(startDate).format(DATEFORMAT)}
               </Typography>
 
               <Typography variant="subtitle1">
