@@ -5,7 +5,7 @@ import { ethers } from "ethers";
 import moment from "moment";
 const contractABI = abi.abi;
 const fundABI = fundabi.abi;
-const contractAddress = "0x5E6249be9d836b168a67A98F8d3F2854cb0387E2";
+const contractAddress = "0xdbDD00E46Af9020FFFA2E0Ec900044edE98923e4";
 
 const useBlockChain = () => {
   const [currentAccount, setCurrentAccount] = useState("");
@@ -86,7 +86,7 @@ const useBlockChain = () => {
       name,
       requiredNbOfParticipants,
       recurringAmount,
-      startDate,
+      parseInt((new Date(startDate).getTime() / 1000).toFixed(0)),
       duration
       //   "Unicorn Ironman",
       //   10,
@@ -136,7 +136,7 @@ const useBlockChain = () => {
       setIsLoading(false);
     } catch {
       setIsLoading(false);
-      alert("An Error Occured");
+      alert("Error loading your contracts. Make sure you are connected to Matic Mumbai network!");
     }
   };
 
