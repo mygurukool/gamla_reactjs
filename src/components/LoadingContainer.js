@@ -7,6 +7,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     height: "100%",
     width: "100%",
+    minHeight: "20vh",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -16,7 +17,7 @@ const LoadingContainer = (props) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <CircularProgress color="primary" size={20} />
+      <CircularProgress color="primary" size={40} />
     </div>
   );
 };

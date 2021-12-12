@@ -19,6 +19,7 @@ import useSearch from "../hooks/useSearch";
 import LoadingContainer from "./LoadingContainer";
 import FundCard from "./FundCard";
 import Scrollbars from "react-custom-scrollbars-2";
+import { SEARCHPARAMS } from "../constants";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     background: theme.palette.background.main,
     border: `1px solid ${theme.palette.background.light}`,
     borderRadius: theme.palette.radius.big,
-    boxShadow: '10px 10px 30px -1px rgba(0,0,0,0.5)',
+    boxShadow: "10px 10px 30px -1px rgba(0,0,0,0.5)",
   },
   searchCard: {
     width: "70vw",
@@ -35,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: "70vh",
     padding: theme.spacing(3),
     zIndex: 10,
-    overflow: "hidden"
+    overflow: "hidden",
     // '& .MuiCardContent-root': {
     //   background: theme.palette.background.main,
     // }
@@ -45,9 +46,13 @@ const useStyles = makeStyles((theme) => ({
 export default function SimplePopper({ data: fundData, onFundClick }) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const inputRef = React.useRef();
+
   const { query, setQuery, data, setData, isLoading } = useSearch({
     array: fundData,
-    fields: ["amount", "duration", "currency"],
+    fields: SEARCHPARAMS,
+    open: Boolean(anchorEl),
   });
 
   const handleClick = (event) => {
@@ -57,9 +62,9 @@ export default function SimplePopper({ data: fundData, onFundClick }) {
   const open = Boolean(anchorEl);
   const id = open ? "simple-popper" : undefined;
   const handleFundClick = (data) => {
-    onFundClick(data)
+    onFundClick(data);
     // navigation('/funddetail', { state: data })
-  }
+  };
   return (
     <div>
       <Search>
@@ -68,34 +73,39 @@ export default function SimplePopper({ data: fundData, onFundClick }) {
         </SearchIconWrapper>
         <StyledInputBase
           placeholder="Search by amount, duration or currency"
-          inputProps={{ "aria-label": "search" }}
+          inputProps={{ "aria-label": "search", ref: inputRef }}
           onChange={(e) => {
             setQuery(e.target.value);
           }}
+          // ref={inputRef}
           onFocus={handleClick}
-        // onBlur={(e) => setAnchorEl(null)}
+          // onBlur={(e) => setAnchorEl()}
         />
       </Search>
       <Popper
         id={id}
         open={open}
-        onMouseLeave={() => setAnchorEl(null)}
+        onMouseLeave={() => {
+          console.log("input ref ", inputRef.current);
+          inputRef.current && inputRef.current.blur();
+
+          setAnchorEl();
+        }}
         anchorEl={anchorEl}
         placement={"bottom-end"}
         className={classes.popper}
       >
-        <Box className={classes.searchCard} >
-          <Scrollbars style={{
-            minHeight: "50vh",
-            maxHeight: "70vh",
-          }}>
+        <Box className={classes.searchCard}>
+          <Scrollbars
+            style={{
+              minHeight: "50vh",
+              maxHeight: "70vh",
+            }}
+          >
             {isLoading ? (
               <LoadingContainer />
             ) : (
-              <Grid
-                container
-                spacing={3}
-              >
+              <Grid container spacing={3}>
                 {data.map((d, i) => {
                   return (
                     <Grid item lg={4} md={4} sm={6} xs={12} key={i}>
@@ -135,7 +145,7 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  color: theme.palette.primary.main
+  color: theme.palette.primary.main,
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({

@@ -44,13 +44,13 @@ const HomeCarousel = ({
         <Swiper
           spaceBetween={50}
           slidesPerView={3}
-          onSlideChange={() => console.log("slide change")}
-          onSwiper={(swiper) => console.log(swiper)}
+          // onSlideChange={() => console.log("slide change")}
+          // onSwiper={(swiper) => console.log(swiper)}
           {...swiperProps}
           breakpoints={breakpoints}
         >
           {data.map((d, i) => (
-            <SwiperSlide>{renderItem(d, i)}</SwiperSlide>
+            <SwiperSlide key={i}>{renderItem(d, i)}</SwiperSlide>
           ))}
         </Swiper>
       </Grid>

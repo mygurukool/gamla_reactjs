@@ -9,10 +9,12 @@ import {
   IconButton,
   Avatar,
   Button,
+  Stack,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
 import SearchModal from "../components/SearchModal";
+import useBlockChain from "../hooks/useBlockChain";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,11 +35,14 @@ const useStyles = makeStyles((theme) => ({
 const Navbar = (props) => {
   const classes = useStyles();
   const history = useNavigate();
+
+  const { currentAccount, connectWallet } = props;
+
   return (
     <AppBar
       position="static"
       variant="outlined"
-      elevation={1}
+      elevation={0}
       className={classes.root}
       style={{
         backgroundColor: "transparent",
@@ -53,13 +58,18 @@ const Navbar = (props) => {
               Gamla Fund
             </Typography>
           </Box>
-          <Button variant="contained" onClick={props.connectWallet}>
-            Connect Wallet
-          </Button>
-          <SearchModal {...props} />
-          {/* <IconButton onClick={() => history(`/search`)}>
-            <SearchIcon />
-          </IconButton> */}
+          <Stack direction="row" spacing={1}>
+            {!currentAccount ? (
+              <Button size="small" variant="outlined" onClick={connectWallet}>
+                Connect Wallet
+              </Button>
+            ) : (
+              <Button size="small" variant="outlined" onClick={connectWallet}>
+                Create Fund
+              </Button>
+            )}
+            <SearchModal {...props} />
+          </Stack>
         </Toolbar>
       </Container>
     </AppBar>

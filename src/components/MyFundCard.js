@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
     background: `linear-gradient(to left top, ${theme.palette.background.light},${theme.palette.background.primary})`,
-    border: `1px solid ${theme.palette.background.light}`
+    border: `1px solid ${theme.palette.background.light}`,
   },
 
   icon: {
@@ -17,15 +17,20 @@ const useStyles = makeStyles((theme) => ({
 
 const colors = {
   BTC: { light: "#fcc079", dark: "#F7931A" },
-  ETH: { light: "#727ac4", dark: "#454A75" }
+  ETH: { light: "#727ac4", dark: "#454A75" },
 };
 
 const MyFundCard = ({ fundName, value, icon, amount, index }) => {
   const classes = useStyles();
   const myColor = colors[fundName];
-  console.log('myColor', colors);
   return (
-    <Card key={index} className={classes.root} sx={{ background: `linear-gradient(to left, ${myColor.light} 10%,${myColor.dark})`, }}>
+    <Card
+      key={index}
+      className={classes.root}
+      sx={{
+        background: `linear-gradient(to left, ${myColor.light} 10%,${myColor.dark})`,
+      }}
+    >
       <CardContent>
         <Grid container>
           <Grid item lg={8} md={8} sm={8} xs={8}>

@@ -1,6 +1,6 @@
 import React from "react";
 
-const useSearch = ({ array, fields }) => {
+const useSearch = ({ array, fields, open }) => {
   const [query, setQuery] = React.useState("");
   const [data, setData] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
@@ -22,12 +22,12 @@ const useSearch = ({ array, fields }) => {
   };
 
   React.useEffect(() => {
-    // if (query === "") {
-    //   // setData(array);
-    // } else if (query.length > 3) {
-    handleSearch(query);
-    // }
-  }, [query]);
+    if (query === "") {
+      setData(array);
+    } else if (query.length > 1) {
+      handleSearch(query);
+    }
+  }, [query, open]);
 
   // React.useEffect(() => {
   //   setData(array);
