@@ -95,7 +95,8 @@ const useBlockChain = () => {
       //   10
     );
 
-    await createFundTxn.wait();
+    const waitValues = await createFundTxn.wait()
+    const fundAddress = waitValues.events[0].args[0];
     await getContracts();
     // console.log("upcoming Mined -- ", createFundTxn.hash);
   };
