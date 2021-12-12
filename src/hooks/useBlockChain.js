@@ -97,8 +97,9 @@ const useBlockChain = () => {
 
     const waitValues = await createFundTxn.wait()
     const fundAddress = waitValues.events[0].args[0];
-    await getContracts();
-    // console.log("upcoming Mined -- ", createFundTxn.hash);
+
+    pledgeCollateral(fundAddress, recurringAmount, requiredNbOfParticipants);
+    await getContracts(recurringAmount);
   };
 
   const joinFund = async (data) => {
@@ -106,20 +107,31 @@ const useBlockChain = () => {
       // collateral,
        address } = data;
 
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-    const communityFund = new ethers.Contract(address, fundABI, signer);
+    //const provider = new ethers.providers.Web3Provider(window.ethereum);
+    //const signer = provider.getSigner();
+    //const communityFund = new ethers.Contract(address, fundABI, signer);
 
-    const collateral = parseInt(parseInt(data.amount) * parseInt(data.requiredNumberOfParticipants) * 1.2).toFixed(0);
+    //const collateral = parseInt(parseInt(data.amount) * parseInt(data.requiredNumberOfParticipants) * 1.2).toFixed(0);
 
     // console.debug("data", data);
     // console.debug("collateral", collateral);
     // console.debug(communityFund)
 
-    const collateralReceipt = await communityFund.collateral({ value: collateral });
-    console.debug("collateralReceipt",collateralReceipt);
+    //const collateralReceipt = await communityFund.collateral({ value: collateral });
+    //console.debug("collateralReceipt",collateralReceipt);
+    pledgeCollateral(address, data.amount, data.requiredNumberOfParticipants);
     deposit(data);
   };
+
+  const pledgeCollateral = async (address, amount, requiredNumberOfParticipants) => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const communityFund = new ethers.Contract(address, fundABI, signer);
+
+    const collateral = parseInt(parseInt(amount) * parseInt(requiredNumberOfParticipants) * 1.2).toFixed(0);
+    const collateralReceipt = await communityFund.collateral({ value: collateral });
+    console.debug("collateralReceipt: ",collateralReceipt);
+  }  
 
   const deposit = async (data) => {
     const { address } = data;
