@@ -126,7 +126,9 @@ const Home = (props) => {
                 />
                 {pastFunds.length === 0 && (
                   <Typography marginLeft={4}>
-                    <h4>There are no funds open for subscription at the moment.</h4>
+                    <h4>
+                      There are no funds open for subscription at the moment.
+                    </h4>
                   </Typography>
                 )}
               </div>
