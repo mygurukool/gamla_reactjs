@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
 const colors = {
   BTC: { light: "#fcc079", dark: "#F7931A" },
   ETH: { light: "#727ac4", dark: "#454A75" },
+  AAVE: { light: "#fc79ce", dark: "#a414df" }, //#fc79ce
 };
 
 const MyFundCard = ({ fundName, value, icon, amount, index }) => {

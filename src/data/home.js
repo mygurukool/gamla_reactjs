@@ -1,10 +1,11 @@
 const btc = "/images/btc.png";
 const ether = "/images/ether.png";
+const aave = "/images/aave.png";
 
 const homeData = {
   carousel: [
-    { fundName: "BTC", value: "0.0132", icon: btc, amount: 845.54 },
     { fundName: "ETH", value: "0.548", icon: ether, amount: 55.54 },
+    { fundName: "AAVE", value: "0.0132", icon: aave, amount: 845.54 },
   ],
 
   trendingFunds: [
