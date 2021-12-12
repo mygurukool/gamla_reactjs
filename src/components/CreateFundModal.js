@@ -25,8 +25,10 @@ import { makeStyles } from "@mui/styles";
 import { useForm, Controller } from "react-hook-form";
 import { LocalizationProvider } from "@mui/lab";
 import AdapterMoment from "@date-io/moment";
+import homeData from "../data/home";
 import moment from "moment";
 
+const pleadgeOptions = homeData.carousel;
 const CreateFundModal = ({ open, onClose, data, onSubmit }) => {
   const {
     register,
@@ -130,7 +132,13 @@ const CreateFundModal = ({ open, onClose, data, onSubmit }) => {
               error={errors["startDate"]}
               required={true}
             />
-
+            <SelectDisplay
+              label=" Pledging collateral"
+              control={control}
+              name="collateral"
+              error={errors["collateral"]}
+              required={true}
+            />
             <Grid item lg={12} md={12} sm={12} xs={12}>
               <Stack spacing={3} direction="row" justifyContent="flex-end">
                 <Button onClick={onClose}>Close</Button>
@@ -186,6 +194,67 @@ const InputDisplay = ({
               }
             }}
           />
+        )}
+        defaultValue={defaultValue || ""}
+        rules={{
+          ...(required && {
+            required: {
+              value: true,
+              message: `${label} is Required`,
+            },
+          }),
+          ...rules,
+        }}
+      />
+    </Grid>
+  );
+};
+const SelectDisplay = ({
+  name,
+  label,
+  defaultValue,
+  control,
+  size = 12,
+  inputProps,
+  required,
+  error,
+  rules,
+  onCustomChange,
+}) => {
+  const classes = useStyles();
+  return (
+    <Grid item lg={size} md={size} sm={size} xs={size}>
+      <Controller
+        name={name}
+        control={control}
+        render={({ field }) => (
+          <TextField
+            select
+            size="small"
+            label={label}
+            fullWidth
+            id="my-input"
+            {...field}
+            margin="none"
+            error={error}
+            helperText={error && error.message}
+            {...inputProps}
+            onChange={(e) => {
+              const value = e.target.value;
+
+              field.onChange(e);
+
+              if (onCustomChange) {
+                onCustomChange(value);
+              }
+            }}
+          >
+            {pleadgeOptions.map((option) => (
+              <MenuItem key={option.fundName} value={option.fundName}>
+                {option.fundName} {option.amount}
+              </MenuItem>
+            ))}
+          </TextField>
         )}
         defaultValue={defaultValue || ""}
         rules={{

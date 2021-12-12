@@ -97,7 +97,7 @@ const FundModal = ({ open, onClose, data }) => {
               color="primary"
             >
               {pleadgeOptions.map((option) => (
-                <MenuItem key={option.fundName} value={option}>
+                <MenuItem key={option.fundName} value={option.fundName}>
                   {option.fundName} {option.amount}
                 </MenuItem>
               ))}
