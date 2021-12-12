@@ -100,8 +100,29 @@ const useBlockChain = () => {
     // console.log("upcoming Mined -- ", createFundTxn.hash);
   };
 
-  const joinFund = (data) => {
-    console.log("joinFund", data);
+  const joinFund = async (data) => {
+    const {
+      // collateral,
+       address } = data;
+
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const communityFund = new ethers.Contract(address, fundABI, signer);
+
+    const collateral = parseInt(data.amount) * parseInt(data.requiredNumberOfParticipants) * 1.2;
+
+    // console.debug("data", data);
+    // console.debug("collateral", collateral);
+    // console.debug(communityFund)
+
+    // const collateralReceipt = await communityFund.collateral({ value: collateral });
+    // console.debug("collateralReceipt",collateralReceipt);
+
+    // const depositReceipt  = await communityFund.deposit({ value: parseInt(data.amount) });
+    // console.debug("depositReceipt",depositReceipt);
+
+    // const balance = await (communityFund.participants(contractAddress));
+    // console.debug("balance", balance);
   };
 
   const getContracts = async () => {
