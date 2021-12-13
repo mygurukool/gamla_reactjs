@@ -18,7 +18,7 @@ import {
   InputLabel,
   Input,
 } from "@mui/material";
-import MobileDatePicker from "@mui/lab/MobileDatePicker";
+import DateTimePicker from "@mui/lab/DateTimePicker";
 import CloseIcon from "@mui/icons-material/Close";
 import { CURRENCY, DATEFORMAT } from "../constants";
 import { makeStyles } from "@mui/styles";
@@ -295,13 +295,14 @@ const DateDisplay = ({
           control={control}
           render={({ field }) => {
             return (
-              <MobileDatePicker
+              <DateTimePicker
                 inputFormat={DATEFORMAT}
                 label={label}
                 value={field.value}
                 onChange={(value) => {
                   field.onChange(value);
                 }}
+                minDateTime={moment()}
                 renderInput={(params) => (
                   <TextField
                     {...params}
