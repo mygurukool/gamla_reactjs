@@ -59,7 +59,7 @@ const useBlockChain = () => {
     }
   };
 
-  const createContract = async ({
+  const createFund = async ({
     name,
     requiredNbOfParticipants,
     recurringAmount,
@@ -218,7 +218,7 @@ const useBlockChain = () => {
     connectWallet,
     getContracts,
     isLoading,
-    createContract,
+    createFund,
     joinFund,
   };
 };

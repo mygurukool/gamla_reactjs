@@ -18,7 +18,7 @@ const Home = (props) => {
   const classes = useStyles();
 
   //ether
-  const { allFunds, connectWallet, createContract, isLoading, currentAccount } =
+  const { allFunds, connectWallet, createFund, isLoading, currentAccount } =
     useBlockChain();
 
   //fund details modal
@@ -44,7 +44,7 @@ const Home = (props) => {
 
   const hanldeCreateFund = async (data) => {
     // console.log("hanldeCreateFund", data);
-    await createContract({
+    await createFund({
       ...data,
       startDate: moment(data.startDate).unix(),
     });
