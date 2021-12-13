@@ -28,6 +28,9 @@ import AdapterMoment from "@date-io/moment";
 import homeData from "../data/home";
 import moment from "moment";
 
+var items = ['Midnight Thing', 'Shadow of Struggle', 'Thunder Excuse', 'Circle of Nothing', 'Beach Daughters', 'Meaning of Diamonds', 'Extreme Riddle', 'Century Thing', 'Brave Connection', 'Axis', 'Carefree Nation'];
+var item = items[Math.floor(Math.random() * items.length)];
+
 const pleadgeOptions = homeData.carousel;
 const CreateFundModal = ({ open, onClose, data, onSubmit }) => {
   const {
@@ -80,7 +83,8 @@ const CreateFundModal = ({ open, onClose, data, onSubmit }) => {
               name="name"
               error={errors["name"]}
               required={true}
-              inputProps={{ margin: "dense" }}
+              inputProps={{ margin: "dense", border: "4px solid red" }}
+              defaultValue={item}
             />
             <InputDisplay
               label="Number of Participants"
