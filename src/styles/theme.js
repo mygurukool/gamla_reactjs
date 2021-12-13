@@ -2,6 +2,7 @@ import { createTheme } from "@mui/material/styles";
 
 let theme = createTheme({
   palette: {
+    mode: "dark",
     white: "#fff",
     black: "#000",
     background: {
@@ -17,6 +18,8 @@ let theme = createTheme({
     text: {
       primary: "#e6e6e6",
       secondary: "#d1d1d1",
+      disabled: "#ffffff80",
+      icon: "#ffffff80",
     },
     gray: {
       100: "#f9f9f9",
