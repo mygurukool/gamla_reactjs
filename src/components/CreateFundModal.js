@@ -42,13 +42,18 @@ const CreateFundModal = ({ open, onClose, data, onSubmit }) => {
     control,
   } = useForm({});
   const [duration, setDuration] = React.useState();
-
+  const [plegingState, setPlagingState] = React.useState();
+  
   const classes = useStyles();
   const localSubmit = (data) => {
-    onSubmit({
-      ...data,
-      duration: duration,
-    });
+    if (!plegingState) {
+      alert("Please accept pledging of deposit collateral");
+    }else {
+      onSubmit({
+        ...data,
+        duration: duration,
+      });
+    }
   };
   return (
     <Dialog
@@ -120,7 +125,7 @@ const CreateFundModal = ({ open, onClose, data, onSubmit }) => {
             /> */}
 
             <InputDisplay
-              label="Amount"
+              label="Recurring Amount"
               control={control}
               name="recurringAmount"
               error={errors["recurringAmount"]}
@@ -143,6 +148,13 @@ const CreateFundModal = ({ open, onClose, data, onSubmit }) => {
               error={errors["collateral"]}
               required={true}
             />
+            <Grid item lg={12} md={12} sm={12} xs={12}>
+              <FormControlLabel
+                control={<Checkbox />}
+                label="I understand the fund details, and agree to create a new fund by pledging the first month's depoist and required collateral"
+                onChange={(e) => setPlagingState(e.target.value)}
+              />
+            </Grid>
             <Grid item lg={12} md={12} sm={12} xs={12}>
               <Stack spacing={3} direction="row" justifyContent="flex-end">
                 <Button onClick={onClose}>Close</Button>
