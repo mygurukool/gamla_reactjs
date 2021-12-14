@@ -31,8 +31,8 @@ import moment from "moment";
 var items = ['Midnight Thing', 'Shadow of Struggle', 'Thunder Excuse', 'Circle of Nothing', 'Beach Daughters', 'Meaning of Diamonds', 'Extreme Riddle', 'Century Thing', 'Brave Connection', 'Axis', 'Carefree Nation'];
 var item = items[Math.floor(Math.random() * items.length)];
 
-const pleadgeOptions = homeData.walletFunds;
-const CreateFundModal = ({ open, onClose, data, onSubmit }) => {
+let pledgeWallet ="";
+const CreateFundModal = ({ open, onClose, data, onSubmit, actualWalletFunds }) => {
   const {
     register,
     handleSubmit,
@@ -42,11 +42,12 @@ const CreateFundModal = ({ open, onClose, data, onSubmit }) => {
     control,
   } = useForm({});
   const [duration, setDuration] = React.useState();
-  const [plegingState, setPlagingState] = React.useState();
-  
+  const [pledgingState, setPledgingState] = React.useState();
+  pledgeWallet = actualWalletFunds;
+
   const classes = useStyles();
   const localSubmit = (data) => {
-    if (!plegingState) {
+    if (!pledgingState) {
       alert("Please accept pledging of deposit collateral");
     }else {
       onSubmit({
@@ -152,7 +153,7 @@ const CreateFundModal = ({ open, onClose, data, onSubmit }) => {
               <FormControlLabel
                 control={<Checkbox />}
                 label="I understand the fund details, and agree to create a new fund by pledging the first month's depoist and required collateral"
-                onChange={(e) => setPlagingState(e.target.value)}
+                onChange={(e) => setPledgingState(e.target.value)}
               />
             </Grid>
             <Grid item lg={12} md={12} sm={12} xs={12}>
@@ -265,7 +266,7 @@ const SelectDisplay = ({
               }
             }}
           >
-            {pleadgeOptions.map((option) => (
+            {pledgeWallet.map((option) => (
               <MenuItem key={option.fundName} value={option.fundName}>
                 {option.fundName} {option.amount}
               </MenuItem>
