@@ -24,7 +24,7 @@ import useBlockChain from "../hooks/useBlockChain";
 import homeData from "../data/home";
 import moment from "moment";
 
-const pleadgeOptions = homeData.carousel;
+const pleadgeOptions = homeData.walletFunds;
 
 const FundModal = ({ open, onClose, data }) => {
   const classes = useStyles();
