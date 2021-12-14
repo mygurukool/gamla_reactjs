@@ -5,7 +5,7 @@ import { ethers } from "ethers";
 import moment from "moment";
 const contractABI = abi.abi;
 const fundABI = fundabi.abi;
-const contractAddress = "0x6E720F351d76081B718ABE98F242068a697a6F6D";
+const contractAddress = "0xd16A05FF29893535c10Db93871e64f8f2d61DF52";
 
 const useBlockChain = () => {
   const [currentAccount, setCurrentAccount] = useState("");
@@ -102,12 +102,12 @@ const useBlockChain = () => {
 
     //pledgeCollateral is a temp calculation, tobe removed once the UI provide an actual collateral pledge
     const pledgeCollateral = parseInt(parseInt(recurringAmount) * parseInt(requiredNbOfParticipants) * 1.2).toFixed(0);
-
+    console.log("pledgeCollateral ", pledgeCollateral)
     const createFundTxn = await communityFundFactory.createCommunityFund(
       name,
       requiredNbOfParticipants,
       recurringAmount,
-      parseInt((new Date(startDate).getTime() / 1000).toFixed(0)),
+      startDate,      //parseInt((new Date(startDate).getTime() / 1000).toFixed(0)),
       duration,
       { value: pledgeCollateral }
     );
@@ -147,6 +147,7 @@ const useBlockChain = () => {
 
     //const collateralReceipt = await communityFund.collateral({ value: collateral });
     //console.debug("collateralReceipt",collateralReceipt);
+    
     pledgeCollateral(address, data.amount, data.requiredNumberOfParticipants);
     deposit(data);
   };
