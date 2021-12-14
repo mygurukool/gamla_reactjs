@@ -12,6 +12,8 @@ const useBlockChain = () => {
   const [allFunds, setAllFunds] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [refreshUseEffect, setRefreshUseEffect] = useState('');
+  const [metaMaskBalance, setMetaMaskBalance] = useState('');
+
   const checkIfWalletIsConnected = async () => {
     try {
       const { ethereum } = window;
@@ -28,8 +30,7 @@ const useBlockChain = () => {
       if (accounts.length !== 0) {
         const account = ethers.utils.getAddress(accounts[0]);
         console.log("Found an authorized account:", account);
-        setCurrentAccount(account);
-        getContracts();
+        initiateUserAccount(account)
       } else {
         console.log("No authorized account found");
       }
@@ -51,13 +52,29 @@ const useBlockChain = () => {
         method: "eth_requestAccounts",
       });
 
-      console.log("Connected", accounts[0]);
-      setCurrentAccount(accounts[0]);
-      getContracts();
+      initiateUserAccount(accounts[0])
     } catch (error) {
       console.log(error);
     }
   };
+
+  const initiateUserAccount = async (account) => {
+    try {
+      //get Crypto assets data from Metamask wallet
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const balance = await provider.getBalance(account)
+      console.log("balance: ",ethers.utils.formatEther(balance))
+      setMetaMaskBalance(ethers.utils.formatEther(balance))
+
+      //Inititate Gamla Fund connection
+      console.log("Connected", account);
+      setCurrentAccount(account);
+      getContracts();
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const createFund = async ({
     name,
@@ -82,23 +99,34 @@ const useBlockChain = () => {
       contractABI,
       signer
     );
+
+    //pledgeCollateral is a temp calculation, tobe removed once the UI provide an actual collateral pledge
+    const pledgeCollateral = parseInt(parseInt(recurringAmount) * parseInt(requiredNbOfParticipants) * 1.2).toFixed(0);
+
     const createFundTxn = await communityFundFactory.createCommunityFund(
       name,
       requiredNbOfParticipants,
       recurringAmount,
       parseInt((new Date(startDate).getTime() / 1000).toFixed(0)),
-      duration
-      //   "Unicorn Ironman",
-      //   10,
-      //   1000,
-      //   1639100000,
-      //   10
+      duration,
+      { value: pledgeCollateral }
     );
 
-    const waitValues = await createFundTxn.wait()
-    const fundAddress = waitValues.events[0].args[0];
+  //   const waitValues = await createFundTxn.wait()
+  //   const fundAddress = waitValues.events[0].args[0];
+  //   alert("fundAddress", fundAddress)
+  //   // pledgeCollateral(fundAddress, recurringAmount, requiredNbOfParticipants);
 
-    pledgeCollateral(fundAddress, recurringAmount, requiredNbOfParticipants);
+
+  //   // const expected = recurringAmount * duration;
+  //   // const deployCommunityFund = await communityFundFactory.createCommunityFund(
+  //   //   fundName, requiredNbOfParticipants, recurringAmount, startDate, duration, { value: expected }
+  //   // )
+  // //  const CommunityFund = await ethers.getContractFactory("CommunityFund");
+    
+  //   const communityFund = new ethers.Contract(fundAddress, fundABI, signer);
+  //   const communityFundCollateralized = communityFund.attach((await createFundTxn.wait()).events[0].args.communityFundAddress);
+  //   console.log(communityFundCollateralized);
     await getContracts(recurringAmount);
   };
 
@@ -198,7 +226,7 @@ const useBlockChain = () => {
     try {
       const participantsAddress = await communityFund.getAllParticipants();
       //const participantsAddress = await communityFund.participants(communityFund.address);
-      console.log("participantsAddress", participantsAddress)
+ //     console.log("participantsAddress", participantsAddress)
       return {
         name,
         requiredNbOfParticipants,
@@ -216,7 +244,7 @@ const useBlockChain = () => {
 
   useEffect(() => {
     checkIfWalletIsConnected();
-    getContracts();
+//    getContracts();
   }, [refreshUseEffect]);
 
   return {
@@ -227,6 +255,7 @@ const useBlockChain = () => {
     isLoading,
     createFund,
     joinFund,
+    metaMaskBalance,
   };
 };
 

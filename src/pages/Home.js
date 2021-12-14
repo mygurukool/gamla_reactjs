@@ -18,7 +18,7 @@ const Home = (props) => {
   const classes = useStyles();
 
   //ether
-  const { allFunds, connectWallet, createFund, isLoading, currentAccount } =
+  const { allFunds, connectWallet, createFund, isLoading, currentAccount, metaMaskBalance } =
     useBlockChain();
 
   //fund details modal
@@ -33,6 +33,17 @@ const Home = (props) => {
   const pastFunds = uniqueFunds.filter((fund) => {
     return moment(fund.startDate, "DD/MM/YYYY HH:mm").isAfter(moment());
   });
+
+  const truncate = (num) => {
+    let places=4;
+    return Math.trunc(num * Math.pow(10, places)) / Math.pow(10, places);
+  }
+  //let bal = Math.trunc(metaMaskBalance * Math.pow(10, 4)) / Math.pow(10, 4)
+  let actualWalletFunds = homeData.walletFunds.map(row => (
+    console.log("metaMaskBalance: ", metaMaskBalance),
+    row.fundName==='MATIC'? {...row, value: truncate(metaMaskBalance), amount: truncate(metaMaskBalance * 1.79637372)}: row
+  ))
+  //this.setState({ markers });
 
   const [openFund, setOpenFund] = React.useState();
 
@@ -56,6 +67,7 @@ const Home = (props) => {
   };
   return (
     <>
+    {console.log("actualWalletFunds: ", actualWalletFunds)}
       <Navbar
         onFundClick={handleFundClick}
         data={uniqueFunds}
@@ -79,7 +91,7 @@ const Home = (props) => {
           <div className={classes.carouselContainer}>
             <HomeCarousel
               title="Your crypto wallet funds"
-              data={homeData.carousel}
+              data={actualWalletFunds}
               renderItem={(d, i) => <MyFundCard {...d} index={i} />}
               breakpoints={breakpointsCarousel}
             />

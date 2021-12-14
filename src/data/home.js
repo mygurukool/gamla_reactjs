@@ -1,11 +1,13 @@
 const btc = "/images/btc.png";
 const ether = "/images/ether.png";
 const aave = "/images/aave.png";
+const matic = "/images/matic.png";
 
 const homeData = {
-  carousel: [
-    { fundName: "ETH", value: "0.548", icon: ether, amount: 55.54 },
-    { fundName: "AAVE", value: "0.0132", icon: aave, amount: 845.54 },
+  walletFunds: [
+    { fundName: "MATIC", value: 0.1148, icon: matic, amount: 155.54 }, //1 matic = 1.79637372 Tether
+    { fundName: "ETH", value: "0.548", icon: ether, amount: 2049 },
+    { fundName: "AAVE", value: "10.678", icon: aave, amount: 1729 },
   ],
 
   trendingFunds: [
