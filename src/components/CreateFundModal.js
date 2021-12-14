@@ -31,7 +31,7 @@ import moment from "moment";
 var items = ['Midnight Thing', 'Shadow of Struggle', 'Thunder Excuse', 'Circle of Nothing', 'Beach Daughters', 'Meaning of Diamonds', 'Extreme Riddle', 'Century Thing', 'Brave Connection', 'Axis', 'Carefree Nation'];
 var item = items[Math.floor(Math.random() * items.length)];
 
-const pleadgeOptions = homeData.carousel;
+const pleadgeOptions = homeData.walletFunds;
 const CreateFundModal = ({ open, onClose, data, onSubmit }) => {
   const {
     register,
