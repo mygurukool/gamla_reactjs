@@ -11,7 +11,7 @@ const useBlockChain = () => {
   const [currentAccount, setCurrentAccount] = useState("");
   const [allFunds, setAllFunds] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [refreshUseEffect, setRefreshUseEffect] = useState('');
   const checkIfWalletIsConnected = async () => {
     try {
       const { ethereum } = window;
@@ -181,6 +181,7 @@ const useBlockChain = () => {
       setIsLoading(false);
     } catch {
       setIsLoading(false);
+      setRefreshUseEffect(1);
       alert("Error loading your contracts. Make sure you are connected to Matic Mumbai network!");
     }
   };
@@ -190,27 +191,33 @@ const useBlockChain = () => {
     const communityFund = new ethers.Contract(address, fundABI, provider);
 
     const name = await communityFund.name();
-
-    const requiredNbOfParticipants =
-      await communityFund.requiredNbOfParticipants();
+    const requiredNbOfParticipants = await communityFund.requiredNbOfParticipants();
     const recurringAmount = await communityFund.recurringAmount();
     const startDate = await communityFund.startDate()*1000*1000;
     const duration = await communityFund.duration();
-    const participantsAddress = await communityFund.getAllParticipants();
-
-    return {
-      name,
-      requiredNbOfParticipants,
-      recurringAmount,
-      startDate,
-      duration,
-      participantsAddress,
-    };
+    try {
+      const participantsAddress = await communityFund.getAllParticipants();
+      //const participantsAddress = await communityFund.participants(communityFund.address);
+      console.log("participantsAddress", participantsAddress)
+      return {
+        name,
+        requiredNbOfParticipants,
+        recurringAmount,
+        startDate,
+        duration,
+        participantsAddress,
+        //participantsAddress: participantsAddress.map((d) => d.toString()),
+      };
+    } catch (error) {
+     // alert("error ", error)
+      console.error("error: ", error)
+    }
   };
 
   useEffect(() => {
     checkIfWalletIsConnected();
-  }, []);
+    getContracts();
+  }, [refreshUseEffect]);
 
   return {
     allFunds,
