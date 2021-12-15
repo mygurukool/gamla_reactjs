@@ -6,6 +6,11 @@ import { Swiper, SwiperSlide } from "swiper/react/swiper-react";
 import "swiper/swiper.min.css";
 import "swiper/modules/pagination/pagination.min.css";
 import { Typography, Grid } from "@mui/material";
+
+import SwiperCore, { Pagination } from 'swiper';
+
+SwiperCore.use([Pagination]);
+
 // Import Swiper styles
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,7 +46,7 @@ const HomeCarousel = ({
         <Typography variant="h6">{title}</Typography>
       </Grid>
       <Grid item lg={12} md={12} sm={12} xs={12}>
-        <Swiper
+        <Swiper pagination={{ "dynamicBullets": true }}
           spaceBetween={50}
           slidesPerView={3}
           // onSlideChange={() => console.log("slide change")}
