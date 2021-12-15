@@ -67,7 +67,6 @@ const Home = (props) => {
   };
   return (
     <>
-    {console.log("actualWalletFunds: ", actualWalletFunds)}
       <Navbar
         onFundClick={handleFundClick}
         data={uniqueFunds}
@@ -85,6 +84,7 @@ const Home = (props) => {
         open={Boolean(openCreateFund)}
         onClose={() => setOpenCreateFund()}
         onSubmit={(data) => hanldeCreateFund(data)}
+        actualWalletFunds={actualWalletFunds}
       />
       <Container maxWidth="lg">
         <div className={classes.root}>
