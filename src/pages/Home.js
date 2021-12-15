@@ -90,7 +90,8 @@ const Home = (props) => {
         <div className={classes.root}>
           <div className={classes.carouselContainer}>
             <HomeCarousel
-              title="Your crypto wallet funds"
+              title= "Crypto wallet funds :"
+              accountInfo = {`Metamask account: ${currentAccount.substring(0, 5)}...${currentAccount.slice(-4)}`}
               data={actualWalletFunds}
               renderItem={(d, i) => <MyFundCard {...d} index={i} />}
               breakpoints={breakpointsCarousel}
@@ -102,7 +103,7 @@ const Home = (props) => {
             <>
               <div className={classes.fundsContainer}>
                 <HomeCarousel
-                  title="Gamla Funds you joined"
+                  title="Subscribed Funds :"
                   data={joinedFunds}
                   renderItem={(d, i) => (
                     <FundCard
@@ -124,7 +125,7 @@ const Home = (props) => {
 
               <div className={classes.fundsContainer}>
                 <HomeCarousel
-                  title="Gamla Funds open for subscription"
+                  title="Open for subscription :"
                   data={pastFunds}
                   renderItem={(d, i) => (
                     <FundCard
@@ -147,7 +148,7 @@ const Home = (props) => {
 
               <div className={classes.fundsContainer}>
                 <HomeCarousel
-                  title="All Gamla Funds"
+                  title="All Gamla Funds :"
                   data={uniqueFunds}
                   renderItem={(d, i) => (
                     <FundCard

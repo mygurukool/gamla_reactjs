@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
 
 const HomeCarousel = ({
   title,
+  accountInfo,
   breakpoints,
   data,
   renderItem,
@@ -44,6 +45,7 @@ const HomeCarousel = ({
         className={classes.titleContainer}
       >
         <Typography variant="h6">{title}</Typography>
+        <Typography variant="caption">{accountInfo}</Typography>
       </Grid>
       <Grid item lg={12} md={12} sm={12} xs={12}>
         <Swiper pagination={{ "dynamicBullets": true }}
