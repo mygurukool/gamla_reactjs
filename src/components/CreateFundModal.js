@@ -103,11 +103,19 @@ const CreateFundModal = ({ open, onClose, data, onSubmit, actualWalletFunds }) =
               }}
               onCustomChange={(val) => setDuration(val)}
             />
-
             <Grid item lg={12} md={12} sm={12} xs={12}>
-              <Typography>Duration : {duration}</Typography>
+              <TextField
+                size="small"
+                label={"Duration"}
+                fullWidth
+                id="my-input"
+                margin="none"
+                //variant="filled"
+                disabled
+                value={'' + duration}
+              />
               <Typography variant="caption">
-                The duration will be same as Number of participants
+                * Fund duration will be same as Number of participants
               </Typography>
             </Grid>
 
@@ -181,6 +189,7 @@ const InputDisplay = ({
   inputProps,
   required,
   error,
+  isDisabled,
   rules,
   onCustomChange,
 }) => {
@@ -200,6 +209,7 @@ const InputDisplay = ({
             margin="none"
             error={error}
             helperText={error && error.message}
+            disabled = {isDisabled} //default: value false
             {...inputProps}
             onChange={(e) => {
               const value = e.target.value;
