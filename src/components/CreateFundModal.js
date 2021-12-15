@@ -100,6 +100,8 @@ const CreateFundModal = ({ open, onClose, data, onSubmit, actualWalletFunds }) =
               error={errors["requiredNbOfParticipants"]}
               inputProps={{
                 type: "number",
+                min: 1,
+                step: 1,
               }}
               onCustomChange={(val) => setDuration(val)}
             />
@@ -141,6 +143,7 @@ const CreateFundModal = ({ open, onClose, data, onSubmit, actualWalletFunds }) =
               required={true}
               inputProps={{
                 type: "number",
+                min: 0,
               }}
             />
             <DateDisplay
@@ -211,6 +214,7 @@ const InputDisplay = ({
             helperText={error && error.message}
             disabled = {isDisabled} //default: value false
             {...inputProps}
+            inputProps={inputProps}
             onChange={(e) => {
               const value = e.target.value;
 

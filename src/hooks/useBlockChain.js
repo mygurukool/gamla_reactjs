@@ -123,7 +123,7 @@ const useBlockChain = () => {
   //   //   fundName, requiredNbOfParticipants, recurringAmount, startDate, duration, { value: expected }
   //   // )
   // //  const CommunityFund = await ethers.getContractFactory("CommunityFund");
-    
+
   //   const communityFund = new ethers.Contract(fundAddress, fundABI, signer);
   //   const communityFundCollateralized = communityFund.attach((await createFundTxn.wait()).events[0].args.communityFundAddress);
   //   console.log(communityFundCollateralized);
@@ -147,7 +147,7 @@ const useBlockChain = () => {
 
     //const collateralReceipt = await communityFund.collateral({ value: collateral });
     //console.debug("collateralReceipt",collateralReceipt);
-    
+
     pledgeCollateral(address, data.amount, data.requiredNumberOfParticipants);
     deposit(data);
   };
@@ -160,7 +160,7 @@ const useBlockChain = () => {
     const collateral = parseInt(parseInt(amount) * parseInt(requiredNumberOfParticipants) * 1.2).toFixed(0);
     const collateralReceipt = await communityFund.collateral({ value: collateral });
     console.debug("collateralReceipt: ",collateralReceipt);
-  }  
+  }
 
   const deposit = async (data) => {
     const { address } = data;
@@ -222,7 +222,7 @@ const useBlockChain = () => {
     const name = await communityFund.name();
     const requiredNbOfParticipants = await communityFund.requiredNbOfParticipants();
     const recurringAmount = await communityFund.recurringAmount();
-    const startDate = await communityFund.startDate()*1000*1000;
+    const startDate = await communityFund.startDate()*1000;
     const duration = await communityFund.duration();
     try {
       const participantsAddress = await communityFund.getAllParticipants();
