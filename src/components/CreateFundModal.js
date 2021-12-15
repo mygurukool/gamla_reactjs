@@ -100,7 +100,8 @@ const CreateFundModal = ({ open, onClose, data, onSubmit, actualWalletFunds }) =
               error={errors["requiredNbOfParticipants"]}
               inputProps={{
                 type: "number",
-                min: 0,
+                min: 1,
+                step: 1,
               }}
               onCustomChange={(val) => setDuration(val)}
             />
