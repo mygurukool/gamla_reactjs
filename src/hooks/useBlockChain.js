@@ -5,7 +5,7 @@ import { ethers } from "ethers";
 import moment from "moment";
 const contractABI = abi.abi;
 const fundABI = fundabi.abi;
-const contractAddress = "0xd16A05FF29893535c10Db93871e64f8f2d61DF52";
+const contractAddress = "0xC3760F3E4aD004BdB14E7D161BdB276a5eeE670c";
 
 const useBlockChain = () => {
   const [currentAccount, setCurrentAccount] = useState("");
@@ -245,7 +245,7 @@ const useBlockChain = () => {
 
   useEffect(() => {
     checkIfWalletIsConnected();
-//    getContracts();
+    getContracts();
   }, [refreshUseEffect]);
 
   return {
