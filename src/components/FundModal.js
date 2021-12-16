@@ -26,8 +26,9 @@ import moment from "moment";
 
 const pleadgeOptions = homeData.walletFunds;
 
-const FundModal = ({ open, onClose, data, onDemandDisable }) => {
+const FundModal = ({ open, onClose, data, currentAccount}) => {
   const classes = useStyles();
+  const onDemandDisable = data?.users.find(element => element === currentAccount )
 
   const [plegingState, setPlagingState] = React.useState();
   const { joinFund } = useBlockChain();
@@ -65,7 +66,6 @@ const FundModal = ({ open, onClose, data, onDemandDisable }) => {
         ) : null}
       </DialogTitle>
       <DialogContent>
-        {"onDemandDisable " + onDemandDisable}
         <Grid container spacing={2}>
           <SectionDisplay
             title="Subscribed Users"

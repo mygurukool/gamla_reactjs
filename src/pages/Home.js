@@ -38,12 +38,12 @@ const Home = (props) => {
     let places=4;
     return Math.trunc(num * Math.pow(10, places)) / Math.pow(10, places);
   }
-  //let bal = Math.trunc(metaMaskBalance * Math.pow(10, 4)) / Math.pow(10, 4)
+
   let actualWalletFunds = homeData.walletFunds.map(row => (
     console.log("metaMaskBalance: ", metaMaskBalance),
     row.fundName==='MATIC'? {...row, value: truncate(metaMaskBalance), amount: truncate(metaMaskBalance * 1.79637372)}: row
+  //let bal = Math.trunc(metaMaskBalance * Math.pow(10, 4)) / Math.pow(10, 4)
   ))
-  //this.setState({ markers });
 
   const [openFund, setOpenFund] = React.useState();
 
@@ -81,7 +81,7 @@ const Home = (props) => {
         open={Boolean(openFund)}
         data={openFund}
         onClose={() => setOpenFund()}
-        onDemandDisable = {disableFundOperation}
+        currentAccount={currentAccount}
       />
 
       <CreateFundModal
