@@ -26,7 +26,7 @@ import moment from "moment";
 
 const pleadgeOptions = homeData.walletFunds;
 
-const FundModal = ({ open, onClose, data }) => {
+const FundModal = ({ open, onClose, data, onDemandDisable }) => {
   const classes = useStyles();
 
   const [plegingState, setPlagingState] = React.useState();
@@ -65,6 +65,7 @@ const FundModal = ({ open, onClose, data }) => {
         ) : null}
       </DialogTitle>
       <DialogContent>
+        {"onDemandDisable " + onDemandDisable}
         <Grid container spacing={2}>
           <SectionDisplay
             title="Subscribed Users"
@@ -96,6 +97,7 @@ const FundModal = ({ open, onClose, data }) => {
               label="Select Pledging collateral"
               color="primary"
               onChange={(e) => setPlagingState(e.target.value)}
+              disabled = {onDemandDisable}
             >
               {pleadgeOptions.map((option) => (
                 <MenuItem key={option.fundName} value={option.amount}>
@@ -107,6 +109,7 @@ const FundModal = ({ open, onClose, data }) => {
           <Grid item lg={12} md={12} sm={12} xs={12}>
             <FormControlLabel
               control={<Checkbox />}
+              disabled = {onDemandDisable}
               label="I understand the fund details, and agree to join by pledging the first month's depoist and required collateral"
             />
           </Grid>
@@ -116,6 +119,7 @@ const FundModal = ({ open, onClose, data }) => {
               fullWidth
               size="large"
               onClick={handleSubmit}
+              disabled = {onDemandDisable}
             >
               JOIN THE FUND
             </Button>

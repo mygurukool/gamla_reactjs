@@ -48,8 +48,11 @@ const Home = (props) => {
   const [openFund, setOpenFund] = React.useState();
 
   const [openCreateFund, setOpenCreateFund] = React.useState(false);
+  
+  const [disableFundOperation, setDisableFundOperation] = React.useState(true);
 
-  const handleFundClick = (data) => {
+  const handleFundClick = (data, setDisable = false) => {
+    setDisableFundOperation(setDisable)
     setOpenFund(data);
   };
 
@@ -78,6 +81,7 @@ const Home = (props) => {
         open={Boolean(openFund)}
         data={openFund}
         onClose={() => setOpenFund()}
+        onDemandDisable = {disableFundOperation}
       />
 
       <CreateFundModal
@@ -107,7 +111,7 @@ const Home = (props) => {
                   data={joinedFunds}
                   renderItem={(d, i) => (
                     <FundCard
-                      onClick={() => handleFundClick(d)}
+                      onClick={() => handleFundClick(d, true)}
                       {...d}
                       index={i}
                     />
