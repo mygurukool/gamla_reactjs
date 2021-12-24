@@ -6,7 +6,12 @@ import moment from "moment";
 const contractABI = abi.abi;
 const fundABI = fundabi.abi;
 const contractAddress = "0xC3760F3E4aD004BdB14E7D161BdB276a5eeE670c";
-
+const ethereumChainDetails = {
+  chainName: "Polygon Testnet Mumbai",
+  rpcUrl: "https://rpc-mumbai.maticvigil.com/",
+  //80001 in hex
+  chainId: "0x13881",
+};
 const useBlockChain = () => {
   const [currentAccount, setCurrentAccount] = useState("");
   const [allFunds, setAllFunds] = useState([]);
@@ -38,6 +43,36 @@ const useBlockChain = () => {
       console.log(error);
     }
   };
+
+  const switchEthereumChain = async () => {
+    const { ethereum } = window;
+
+    if (!ethereum) {
+      alert("Get MetaMask!");
+      return;
+    }
+    try {
+      await ethereum.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: ethereumChainDetails.chainId }]
+      });
+      console.log('Successfully switched to chain 80001');
+    } catch (switchError) {
+      console.error(switchError);
+      // This error code indicates that the chain has not been added to MetaMask.
+      if (switchError.code === 4902) {
+        try {
+          await ethereum.request({
+            method: 'wallet_addEthereumChain',
+            params: [ethereumChainDetails],
+          });
+        } catch (addError) {
+          console.error(addError);
+        }
+      }
+      // handle other "switch" errors
+    }
+  }
 
   const connectWallet = async () => {
     try {
