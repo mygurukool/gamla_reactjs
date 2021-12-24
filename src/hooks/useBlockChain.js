@@ -130,6 +130,7 @@ const useBlockChain = () => {
       startDate,
       duration
     );
+    switchEthereumChain();
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
 
@@ -245,12 +246,14 @@ const useBlockChain = () => {
           };
         })
       );
-      setAllFunds([...allFunds, ...contractsDetails]);
+      let uniqueFunds = [...allFunds, ...contractsDetails]
+      uniqueFunds = new Map(uniqueFunds.map((v) => [v.address, v])).values();
+      setAllFunds([...uniqueFunds])
       setIsLoading(false);
     } catch {
       setIsLoading(false);
-      setRefreshUseEffect(1);
-      alert("Error loading your contracts. Make sure you are connected to Matic Mumbai network!");
+      setChainConnected(0);
+      console.error('getContracts error');
     }
   };
 
@@ -285,11 +288,12 @@ const useBlockChain = () => {
   useEffect(() => {
     checkIfWalletIsConnected();
     getContracts();
-  }, [refreshUseEffect]);
+  }, [chainConnected]);
 
   return {
     allFunds,
     currentAccount,
+    chainConnected,
     connectWallet,
     getContracts,
     isLoading,
