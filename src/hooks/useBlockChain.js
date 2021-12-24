@@ -16,7 +16,7 @@ const useBlockChain = () => {
   const [currentAccount, setCurrentAccount] = useState("");
   const [allFunds, setAllFunds] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [refreshUseEffect, setRefreshUseEffect] = useState('');
+  const [chainConnected, setChainConnected] = useState(0);
   const [metaMaskBalance, setMetaMaskBalance] = useState('');
 
   const checkIfWalletIsConnected = async () => {
@@ -57,6 +57,7 @@ const useBlockChain = () => {
         params: [{ chainId: ethereumChainDetails.chainId }]
       });
       console.log('Successfully switched to chain 80001');
+      setChainConnected(1);
     } catch (switchError) {
       console.error(switchError);
       // This error code indicates that the chain has not been added to MetaMask.
@@ -66,6 +67,7 @@ const useBlockChain = () => {
             method: 'wallet_addEthereumChain',
             params: [ethereumChainDetails],
           });
+          setChainConnected(1);
         } catch (addError) {
           console.error(addError);
         }
@@ -82,6 +84,8 @@ const useBlockChain = () => {
         alert("Get MetaMask!");
         return;
       }
+
+      switchEthereumChain();
 
       const accounts = await ethereum.request({
         method: "eth_requestAccounts",
