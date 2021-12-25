@@ -16,7 +16,7 @@ const useBlockChain = () => {
   const [currentAccount, setCurrentAccount] = useState("");
   const [allFunds, setAllFunds] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [chainConnected, setChainConnected] = useState(0);
+  const [chainConnected, setChainConnected] = useState(1);
   const [metaMaskBalance, setMetaMaskBalance] = useState('');
 
   const checkIfWalletIsConnected = async () => {
