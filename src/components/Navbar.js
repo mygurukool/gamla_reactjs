@@ -12,6 +12,8 @@ import {
   Stack,
   Hidden,
   Grid,
+  Tooltip,
+  Zoom,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
@@ -46,9 +48,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Navbar = (props) => {
   const classes = useStyles();
-  const history = useNavigate();
 
-  const { currentAccount, connectWallet, onCreateFund } = props;
+  const { currentAccount, connectWallet, onCreateFund, chainConnected } = props;
 
   return (
     <AppBar
@@ -72,10 +73,16 @@ const Navbar = (props) => {
               </Typography>
             </Box>
             <Stack direction="row" spacing={1}>
-              {!currentAccount ? (
-                <Button size="small" variant="outlined" onClick={connectWallet}>
-                  Connect Wallet
-                </Button>
+              {!currentAccount||!chainConnected ? (
+                <Tooltip
+                  TransitionComponent={Zoom}
+                  arrow
+                  title={currentAccount ? "Switch Network to Polygon Mumbai testnet" :  ""}
+                >
+                  <Button size="small" variant="outlined" onClick={connectWallet}>
+                    {currentAccount ? "Switch Network" :  "Connect Wallet"}
+                  </Button>
+                </Tooltip>
               ) : (
                 <Button size="small" variant="outlined" onClick={onCreateFund}>
                   Create Fund
@@ -101,16 +108,15 @@ const Navbar = (props) => {
                       Gamla Fund
                     </Typography>
                   </Box>
-
-                  {!currentAccount ? (
-                    <Button
-                      size="small"
-                      variant="outlined"
-                      onClick={connectWallet}
-                    >
-                      Connect Wallet
-                    </Button>
-                  ) : (
+                    {!currentAccount||!chainConnected ? (
+                      <Button
+                        size="small"
+                        variant="outlined"
+                        onClick={connectWallet}
+                      >
+                        {currentAccount ? "Switch Network" :  "Connect Wallet"}
+                      </Button>
+                    ) : (
                     <Button
                       size="small"
                       variant="outlined"

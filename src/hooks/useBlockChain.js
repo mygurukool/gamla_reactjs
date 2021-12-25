@@ -6,12 +6,17 @@ import moment from "moment";
 const contractABI = abi.abi;
 const fundABI = fundabi.abi;
 const contractAddress = "0xC3760F3E4aD004BdB14E7D161BdB276a5eeE670c";
-
+const ethereumChainDetails = {
+  chainName: "Polygon Testnet Mumbai",
+  rpcUrl: "https://rpc-mumbai.maticvigil.com/",
+  //80001 in hex
+  chainId: "0x13881",
+};
 const useBlockChain = () => {
   const [currentAccount, setCurrentAccount] = useState("");
   const [allFunds, setAllFunds] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [refreshUseEffect, setRefreshUseEffect] = useState('');
+  const [chainConnected, setChainConnected] = useState(1);
   const [metaMaskBalance, setMetaMaskBalance] = useState('');
 
   const checkIfWalletIsConnected = async () => {
@@ -39,6 +44,38 @@ const useBlockChain = () => {
     }
   };
 
+  const switchEthereumChain = async () => {
+    const { ethereum } = window;
+
+    if (!ethereum) {
+      alert("Get MetaMask!");
+      return;
+    }
+    try {
+      await ethereum.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: ethereumChainDetails.chainId }]
+      });
+      console.log('Successfully switched to chain 80001');
+      setChainConnected(1);
+    } catch (switchError) {
+      console.error(switchError);
+      // This error code indicates that the chain has not been added to MetaMask.
+      if (switchError.code === 4902) {
+        try {
+          await ethereum.request({
+            method: 'wallet_addEthereumChain',
+            params: [ethereumChainDetails],
+          });
+          setChainConnected(1);
+        } catch (addError) {
+          console.error(addError);
+        }
+      }
+      // handle other "switch" errors
+    }
+  }
+
   const connectWallet = async () => {
     try {
       const { ethereum } = window;
@@ -47,6 +84,8 @@ const useBlockChain = () => {
         alert("Get MetaMask!");
         return;
       }
+
+      switchEthereumChain();
 
       const accounts = await ethereum.request({
         method: "eth_requestAccounts",
@@ -91,6 +130,7 @@ const useBlockChain = () => {
       startDate,
       duration
     );
+    switchEthereumChain();
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
 
@@ -206,12 +246,14 @@ const useBlockChain = () => {
           };
         })
       );
-      setAllFunds([...allFunds, ...contractsDetails]);
+      let uniqueFunds = [...allFunds, ...contractsDetails]
+      uniqueFunds = new Map(uniqueFunds.map((v) => [v.address, v])).values();
+      setAllFunds([...uniqueFunds])
       setIsLoading(false);
     } catch {
       setIsLoading(false);
-      setRefreshUseEffect(1);
-      alert("Error loading your contracts. Make sure you are connected to Matic Mumbai network!");
+      setChainConnected(0);
+      console.error('getContracts error');
     }
   };
 
@@ -246,11 +288,12 @@ const useBlockChain = () => {
   useEffect(() => {
     checkIfWalletIsConnected();
     getContracts();
-  }, [refreshUseEffect]);
+  }, [chainConnected]);
 
   return {
     allFunds,
     currentAccount,
+    chainConnected,
     connectWallet,
     getContracts,
     isLoading,

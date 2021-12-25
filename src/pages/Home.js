@@ -18,7 +18,7 @@ const Home = (props) => {
   const classes = useStyles();
 
   //ether
-  const { allFunds, connectWallet, createFund, isLoading, currentAccount, metaMaskBalance } =
+  const { allFunds, connectWallet, createFund, isLoading, currentAccount, metaMaskBalance, chainConnected } =
     useBlockChain();
 
   //fund details modal
@@ -48,7 +48,7 @@ const Home = (props) => {
   const [openFund, setOpenFund] = React.useState();
 
   const [openCreateFund, setOpenCreateFund] = React.useState(false);
-  
+
   const [disableFundOperation, setDisableFundOperation] = React.useState(true);
 
   const handleFundClick = (data, setDisable = false) => {
@@ -75,6 +75,7 @@ const Home = (props) => {
         data={uniqueFunds}
         connectWallet={connectWallet}
         currentAccount={currentAccount}
+        chainConnected={chainConnected}
         onCreateFund={onCreateFund}
       />
       <FundModal
@@ -95,7 +96,7 @@ const Home = (props) => {
           <div className={classes.carouselContainer}>
             <HomeCarousel
               title= "Crypto wallet funds :"
-              accountInfo = {`Metamask account: ${currentAccount.substring(0, 5)}...${currentAccount.slice(-4)}`}
+              accountInfo = {`Wallet address: ${currentAccount.substring(0, 5)}...${currentAccount.slice(-4)}`}
               data={actualWalletFunds}
               renderItem={(d, i) => <MyFundCard {...d} index={i} />}
               breakpoints={breakpointsCarousel}
