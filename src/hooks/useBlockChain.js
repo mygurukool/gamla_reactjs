@@ -9,7 +9,7 @@ const fundABI = fundabi.abi;
 const contractAddress = "0xC3760F3E4aD004BdB14E7D161BdB276a5eeE670c";
 const ethereumChainDetails = {
   chainName: "Polygon Testnet Mumbai",
-  rpcUrl: "https://rpc-mumbai.maticvigil.com/",
+  rpcUrls: ["https://rpc-mumbai.maticvigil.com/"],
   //80001 in hex
   chainId: "0x13881",
 };
