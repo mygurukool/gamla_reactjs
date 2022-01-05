@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@mui/styles";
-import { Card, CardContent, Container, Grid, Typography } from "@mui/material";
+import {  Button, Card, CardContent, Container, Grid, Typography } from "@mui/material";
 import HomeCarousel from "../components/HomeCarousel";
 
 import homeData from "../data/home";
@@ -18,7 +18,7 @@ const Home = (props) => {
   const classes = useStyles();
 
   //ether
-  const { allFunds, connectWallet, createFund, isLoading, currentAccount, metaMaskBalance, chainConnected } =
+  const { allFunds, connectWallet, createFund, isLoading, currentAccount, metaMaskBalance, chainConnected, switchEthereumChain } =
     useBlockChain();
 
   //fund details modal
@@ -169,7 +169,16 @@ const Home = (props) => {
             </>
           ) : (
             <div className={classes.NoFundsContainer}>
-              <Typography>No Funds Found</Typography>
+              <Typography>{chainConnected ? "No Funds Found" :
+                <>
+                  Our contracts works on Polygon Testnet.
+                  <br/>
+                  Please switch to Polygon Testnet to see the funds.
+                  <br/>
+                  <Button size="small" variant="outlined" fullWidth position="center" onClick={switchEthereumChain}>
+                    Switch Network
+                  </Button>
+                </>}</Typography>
             </div>
           )}
         </div>

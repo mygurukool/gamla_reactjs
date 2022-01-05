@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import abi from "../utils/CommunityFundFactory.json";
 import fundabi from "../utils/CommunityFund.json";
 import { ethers } from "ethers";
+import Web3 from 'web3'
 import moment from "moment";
 const contractABI = abi.abi;
 const fundABI = fundabi.abi;
@@ -28,6 +29,11 @@ const useBlockChain = () => {
         return;
       } else {
         console.log("We have the ethereum object", ethereum);
+      }
+			const web3 = new Web3(window.ethereum)
+      const networkId = await web3.eth.net.getId()
+      if (web3.utils.toHex(networkId) !== ethereumChainDetails.chainId) {
+        setChainConnected(0);
       }
 
       const accounts = await ethereum.request({ method: "eth_accounts" });
